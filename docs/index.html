@@ -1,19 +1,372 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Paper</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>From Transmission Line Models to Stuart–Landau Oscillators</title>
+  <meta
+    name="description"
+    content="Project page for 'From Transmission Line Models to Stuart–Landau Oscillators: A Hopf-Based Description of Cochlear Dynamics'."
+  />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121936;
+      --card: #161f42;
+      --text: #eaf0ff;
+      --muted: #b8c3e0;
+      --line: rgba(255,255,255,0.1);
+      --accent: #7cc6ff;
+      --accent-2: #91f0c0;
+      --shadow: 0 20px 50px rgba(0,0,0,0.25);
+      --max: 1100px;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,198,255,0.16), transparent 32%),
+        radial-gradient(circle at top right, rgba(145,240,192,0.12), transparent 28%),
+        linear-gradient(180deg, #09101f 0%, #0d1430 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(var(--max), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 64px 0 36px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 36px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(124,198,255,0.12);
+      border: 1px solid rgba(124,198,255,0.25);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      margin: 0 0 16px;
+      max-width: 980px;
+    }
+
+    .authors {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .affiliation {
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-bottom: 24px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 600;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .btn:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(124,198,255,0.22), rgba(145,240,192,0.18));
+      border-color: rgba(124,198,255,0.35);
+    }
+
+    section {
+      padding: 18px 0 28px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-top: 0;
+      color: var(--text);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .hero-media {
+      margin-top: 26px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #0a0f20;
+    }
+
+    .hero-media img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .video-wrap {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #050913;
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #000;
+    }
+
+    ul.clean {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .citation {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #dce8ff;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 24px 0 56px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 800px) {
+      .hero-card { padding: 24px; }
+      .grid.two { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <h1>My Paper Title</h1>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="badge">Conference Paper Project Page</div>
 
-  <h2>Abstract</h2>
-  <p>Short description...</p>
+        <h1>From Transmission Line Models to Stuart–Landau Oscillators: A Hopf-Based Description of Cochlear Dynamics</h1>
 
-  <h2>Links</h2>
-  <ul>
-    <li><a href="FA_paper_1_02.pdf">Paper PDF</a></li>
-    <li><a href="https://github.com/SPSC-TUGraz/earcillator">Code</a></li>
-  </ul>
+        <div class="authors">
+          Sebastian Handel, Martin Hagmüller, Gernot Kubin
+        </div>
+
+        <div class="affiliation">
+          Signal Processing and Speech Communication Laboratory, Technical University of Graz, Austria
+        </div>
+
+        <p class="muted" style="max-width: 850px;">
+          We show how local cochlear dynamics in a transmission-line model undergo a Hopf bifurcation
+          and reduce to the Stuart–Landau normal form. The resulting oscillator-based view captures
+          characteristic cochlear behavior including frequency selectivity, nonlinear compression, and
+          traveling-wave-like responses.
+        </p>
+
+        <div class="button-row">
+          <a class="btn primary" href="FA_paper_1_02.pdf" target="_blank" rel="noopener">📄 Paper PDF</a>
+          <a class="btn" href="https://github.com/SPSC-TUGraz/earcillator" target="_blank" rel="noopener">💻 Code</a>
+          <a class="btn" href="#video">🎬 Video</a>
+          <a class="btn" href="#citation">📚 Citation</a>
+        </div>
+
+        <!-- Optional teaser image -->
+        <!-- Replace poster.png with your own teaser image, or remove this block entirely -->
+        <div class="hero-media">
+          <img src="poster.png" alt="Teaser image for the paper" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="container grid two">
+        <div class="card">
+          <h2>Abstract</h2>
+          <p>
+            Many cochlear models describe the basilar membrane as a distributed transmission line,
+            while others interpret active auditory mechanics through nonlinear oscillators near a Hopf
+            bifurcation. This work connects these views analytically by showing that the local dynamics
+            of the transmission-line formulation can be reduced to a Stuart–Landau oscillator near the
+            bifurcation point.
+          </p>
+          <p>
+            A numerical simulation framework then demonstrates how an ensemble of coupled oscillators
+            reproduces cochlear features such as sharp tuning at low levels, compressive nonlinearities,
+            and traveling-wave-like behavior across the tonotopic axis.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Highlights</h2>
+          <ul class="clean">
+            <li>Analytical reduction from a transmission-line element to Hopf normal form</li>
+            <li>Interpretation of cochlear partition dynamics as coupled Stuart–Landau oscillators</li>
+            <li>Numerical simulations of 600 oscillators from 200 Hz to 16 kHz</li>
+            <li>Frequency selectivity and level-dependent compression</li>
+            <li>Traveling-wave-like dynamics emerging across the oscillator array</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="video">
+      <div class="container">
+        <div class="card">
+          <h2>Video</h2>
+          <p class="muted">
+            This section replaces the second figure with a video demonstration. Put your file at
+            <code>docs/media/traveling_wave.mp4</code>. You can also add a poster image if you want
+            the video player to show a preview before playback.
+          </p>
+
+          <div class="video-wrap">
+            <video controls preload="metadata" playsinline poster="poster.png">
+              <source src="media/traveling_wave.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <p style="margin-top: 14px;">
+            Suggested content: animation of the transient response, basilar-membrane displacement, or
+            the traveling-wave-like evolution across the oscillator ensemble.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container grid two">
+        <div class="card">
+          <h2>Method</h2>
+          <p>
+            The paper derives Hopf conditions for a local transmission-line element with delayed feedback,
+            shows the existence of a bifurcation, and then reduces the local dynamics to a complex
+            Stuart–Landau equation on the center manifold.
+          </p>
+          <p>
+            Simulations are performed for coupled oscillators with nearest-neighbor interactions, allowing
+            comparison between a transmission-line viewpoint and a coupled-oscillator description of
+            cochlear mechanics.
+          </p>
+        </div>
+
+        <div class="card">
+          <h2>Results</h2>
+          <p>
+            The simulations show strong frequency selectivity at low stimulus levels, a shift of the peak
+            response toward lower characteristic frequencies at higher levels, and compressive nonlinear
+            behavior. The transient dynamics also exhibit a traveling-wave-like pattern along the oscillator
+            array.
+          </p>
+          <p>
+            These observations support the interpretation that coupled Hopf-type oscillators provide a
+            compact and insightful model for cochlear partition dynamics near the bifurcation regime.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="container">
+        <div class="card">
+          <h2>Citation</h2>
+          <div class="citation">@inproceedings{handel2026hopfcochlea,
+  title     = {From Transmission Line Models to Stuart--Landau Oscillators: A Hopf-Based Description of Cochlear Dynamics},
+  author    = {Handel, Sebastian and Hagm\"uller, Martin and Kubin, Gernot},
+  booktitle = {12th Convention of the European Acoustics Association},
+  year      = {2026},
+  address   = {Graz, Austria}
+}</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Sebastian Handel, Martin Hagmüller, Gernot Kubin · Project page hosted with GitHub Pages
+    </div>
+  </footer>
 </body>
 </html>
