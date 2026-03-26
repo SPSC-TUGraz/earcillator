@@ -1,4 +1,4 @@
-# earcillator
+# Earcillator
 
 Implementation accompanying the paper:
 **“From Transmission Line Models to Stuart–Landau Oscillators:
@@ -17,7 +17,6 @@ https://SPSC-TUGraz.github.io/earcillator/
 ```text
 docs/        Project webpage (GitHub Pages)
 src/         Core model implementation
-scripts/     Simulation and experiment scripts
 ```
 
 ---
@@ -31,7 +30,7 @@ git clone https://github.com/SPSC-TUGraz/earcillator.git
 cd earcillator
 ```
 
-Further usage depends on the scripts and modules in `src/` and `scripts/`.
+Further usage depends on the scripts and modules in `src/`.
 
 ---
 
@@ -51,5 +50,5 @@ Further usage depends on the scripts and modules in `src/` and `scripts/`.
 
 ## 📬 Contact
 
-For questions, please open an issue in this repository.
+For questions, please send a mail to sebastian.handel@tugraz.at.
 
