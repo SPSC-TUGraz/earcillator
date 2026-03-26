@@ -1,1 +1,1 @@
-[From Transmission Line Models to Stuart–Landau Oscillators](https://BastlWastl28.github.io/earcillator/)
+[From Transmission Line Models to Stuart–Landau Oscillators](https://SPSC-TUGraz.github.io/earcillator/)
