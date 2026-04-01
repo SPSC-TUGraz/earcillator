@@ -132,7 +132,7 @@ function SLOT(
     ensemble_prob = EnsembleProblem(sde, prob_func=prob_func)
 
     # Solve ensemble with N trajectories
-    sol = solve(ensemble_prob, trajectories = E, SRIW1(), EnsembleThreads(), dt=1e-14, saveat=t_data)
+    sol = solve(ensemble_prob, trajectories = E, SOSRI2(), EnsembleThreads(), saveat=t_data)
 
     num_steps = length(sol[1].t)
 
